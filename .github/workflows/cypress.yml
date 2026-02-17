@@ -1,0 +1,28 @@
+name: Тестирование статического HTML
+
+on: [push]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Установка Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Установка зависимостей
+        run: npm ci
+
+      - name: Установка http-server глобально
+        run: npm install -g http-server
+
+      - name: Запуск сервера и тестов Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          start: npx http-server . --port 3000
+          wait-on: 'http://localhost:3000'
+          browser: chrome
