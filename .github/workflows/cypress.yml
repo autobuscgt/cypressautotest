@@ -15,7 +15,7 @@ jobs:
           node-version: 18
 
       - name: Установка зависимостей
-        run: npm ci
+        run: npm i
 
       - name: Установка http-server глобально
         run: npm install -g http-server
